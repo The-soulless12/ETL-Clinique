@@ -1,8 +1,12 @@
--- Création des dimensions et des tables de faits
-
 CREATE TABLE Dim_Tranche_Age (
     Id_Tranche_Age SERIAL PRIMARY KEY,
     Tranche_Age VARCHAR(20)
+);
+
+CREATE TABLE Dim_Maladie (
+    Id_Maladie SERIAL PRIMARY KEY,
+    Nom_Maladie VARCHAR(100) UNIQUE,
+    Description TEXT
 );
 
 CREATE TABLE Dim_Region (
@@ -16,8 +20,8 @@ CREATE TABLE Dim_Patient (
     Date_Naissance DATE,
     Groupage VARCHAR(10),
     Mobile VARCHAR(15),
-    Id_Region INT REFERENCES Dim_Region(Id_Region),
-    Id_Tranche_Age INT REFERENCES Dim_Tranche_Age(Id_Tranche_Age)
+    Id_Region INT REFERENCES Dim_Region(Id_Region), 
+    Id_Tranche_Age INT REFERENCES Dim_Tranche_Age(Id_Tranche_Age) 
 );
 
 CREATE TABLE Dim_Specialite (
@@ -33,8 +37,8 @@ CREATE TABLE Dim_Service (
 CREATE TABLE Dim_Medecin (
     Id_Medecin INT PRIMARY KEY,
     Nom VARCHAR(100),
-    Id_Specialite INT REFERENCES Dim_Specialite(Id_Specialite),
-    Id_Service INT REFERENCES Dim_Service(Id_Service)
+    Id_Specialite INT REFERENCES Dim_Specialite(Id_Specialite), 
+    Id_Service INT REFERENCES Dim_Service(Id_Service) 
 );
 
 CREATE TABLE Dim_Nature_Analyse (
@@ -50,7 +54,7 @@ CREATE TABLE Dim_Type_Medicament (
 CREATE TABLE Dim_Analyse_Medicale (
     Code_Analyse INT PRIMARY KEY,
     Libelle_Analyse VARCHAR(100),
-    Id_Nature_Analyse INT REFERENCES Dim_Nature_Analyse(Id_Nature_Analyse),
+    Id_Nature_Analyse INT REFERENCES Dim_Nature_Analyse(Id_Nature_Analyse), 
     Val_Min DECIMAL(10, 2),
     Val_Max DECIMAL(10, 2)
 );
@@ -58,7 +62,7 @@ CREATE TABLE Dim_Analyse_Medicale (
 CREATE TABLE Dim_Medicament (
     Ref_medicament INT PRIMARY KEY,
     Libelle_Medicament VARCHAR(100),
-    Id_Type_Medicament INT REFERENCES Dim_Type_Medicament(Id_Type_Medicament)
+    Id_Type_Medicament INT REFERENCES Dim_Type_Medicament(Id_Type_Medicament) 
 );
 
 CREATE TABLE Dim_Jour_Semaine (
@@ -76,7 +80,7 @@ CREATE TABLE Dim_Trimestre (
     Libelle_trimestre VARCHAR(20)
 );
 
-CREATE TABLE Dim_Mois (
+CREATE TABLE Dim_mois (
     Id_mois SERIAL PRIMARY KEY,
     Libelle_mois VARCHAR(20),
     Id_Trimestre INT REFERENCES Dim_Trimestre(Id_Trimestre)
@@ -85,46 +89,16 @@ CREATE TABLE Dim_Mois (
 CREATE TABLE Dim_Date (
     Id_Date DATE PRIMARY KEY,
     Id_Jour_Semaine INT REFERENCES Dim_Jour_Semaine(Id_Jour_Semaine),
-    Id_mois INT REFERENCES Dim_Mois(Id_mois),
+    Id_mois INT REFERENCES Dim_mois(Id_mois),
     Id_Annee INT REFERENCES Dim_Annee(Id_Annee)
 );
 
--- Tables de faits
-CREATE TABLE Fact_Consultations (
-    Id_Medecin INT REFERENCES Dim_Medecin(Id_Medecin),
-    Id_Patient INT REFERENCES Dim_Patient(Id_Patient),
-    Id_Date DATE REFERENCES Dim_Date(Id_Date),
-    Prix DECIMAL(10, 2),
-    PRIMARY KEY (Id_Medecin, Id_Patient, Id_Date)
-);
-
-CREATE TABLE Fact_Analyses_Medicales (
-    Id_Patient INT REFERENCES Dim_Patient(Id_Patient),
-    Code_Analyse INT REFERENCES Dim_Analyse_Medicale(Code_Analyse),
-    Id_Date DATE REFERENCES Dim_Date(Id_Date),
-    Prix DECIMAL(10, 2),
-    Resultat DECIMAL(10, 2),
-    PRIMARY KEY (Id_Patient, Code_Analyse, Id_Date)
-);
-
-CREATE TABLE Fact_Prescriptions (
-    Id_Medecin INT REFERENCES Dim_Medecin(Id_Medecin),
-    Id_Patient INT REFERENCES Dim_Patient(Id_Patient),
-    Id_Date DATE REFERENCES Dim_Date(Id_Date),
-    Ref_Medicament INT REFERENCES Dim_Medicament(Ref_medicament),
-    Quantite INT,
-    Duree_Traitement INT,
-    PRIMARY KEY (Id_Medecin, Id_Patient, Id_Date, Ref_Medicament)
-);
-
-
--- Insertion des années
+-- Insertion des données 
 INSERT INTO Dim_Annee (Id_Annee, Libelle_Annee) VALUES 
     (2022, '2022'),
     (2023, '2023'),
     (2024, '2024');
 
--- Insertion des jours
 INSERT INTO Dim_Jour_Semaine (Id_Jour_Semaine, Libelle_Jour_Semaine) VALUES 
     (1, 'Dimanche'),
     (2, 'Lundi'),
@@ -134,15 +108,13 @@ INSERT INTO Dim_Jour_Semaine (Id_Jour_Semaine, Libelle_Jour_Semaine) VALUES
     (6, 'Vendredi'),
     (7, 'Samedi');
 
--- Insertion des trimestres
 INSERT INTO Dim_Trimestre (Id_Trimestre, Libelle_trimestre) VALUES 
     (1, 'Trimestre 1'),
     (2, 'Trimestre 2'),
     (3, 'Trimestre 3'),
     (4, 'Trimestre 4');
 
--- Insertion des mois
-INSERT INTO Dim_Mois (Id_Mois, Libelle_mois, Id_Trimestre) VALUES 
+INSERT INTO Dim_Mois (Id_Mois, Libelle_mois,Id_Trimestre) VALUES 
     (1, 'Janvier', 1),
     (2, 'Février', 1),
     (3, 'Mars', 1),
@@ -155,13 +127,25 @@ INSERT INTO Dim_Mois (Id_Mois, Libelle_mois, Id_Trimestre) VALUES
     (10, 'Octobre', 4),
     (11, 'Novembre', 4),
     (12, 'Décembre', 4);
-
--- Génération des dates pour l'année 2023
+ 
 INSERT INTO Dim_Date (Id_Date, Id_Jour_Semaine, Id_Mois, Id_Annee)
 SELECT
     dates::DATE AS Id_Date,
-    EXTRACT(DOW FROM dates)::INT + 1 AS Id_Jour_Semaine,
+    EXTRACT(DOW FROM dates)::INT + 1 AS Id_Jour_Semaine, 
     EXTRACT(MONTH FROM dates)::INT AS Id_Mois,
     EXTRACT(YEAR FROM dates)::INT AS Id_Annee
 FROM
     generate_series('2023-01-01'::DATE, '2023-12-31'::DATE, '1 day'::INTERVAL) AS dates;
+
+INSERT INTO Dim_Maladie (Nom_Maladie, Description)
+VALUES
+('Healthy', 'Aucune maladie détectée lors de la consultation.'),
+('Eczema', 'Affection cutanée inflammatoire provoquant rougeurs, démangeaisons et sécheresse.'),
+('Migraine', 'Céphalée intense souvent accompagnée de nausées et de sensibilité à la lumière.'),
+('Angina', 'Douleur thoracique causée par un manque d’oxygène au muscle cardiaque.'),
+('Arthritis', 'Inflammation des articulations entraînant douleurs et raideurs.'),
+('Anxiety', 'Trouble psychologique caractérisé par un sentiment persistant d’inquiétude ou de peur.'),
+('Diabetes', 'Maladie chronique affectant la régulation de la glycémie.'),
+('Hypertension', 'Pression artérielle élevée pouvant mener à des complications cardiovasculaires.'),
+('Asthma', 'Maladie respiratoire chronique provoquant une inflammation et un rétrécissement des voies respiratoires.'),
+('Depression', 'Trouble de l’humeur caractérisé par une tristesse persistante et une perte d’intérêt.');
