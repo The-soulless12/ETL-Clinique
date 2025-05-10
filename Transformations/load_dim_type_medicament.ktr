@@ -434,6 +434,28 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>Activez le bloc de vidage de la table si vous
+ souhaitez réinsérer l'ensemble des données.</note>
+      <xloc>272</xloc>
+      <yloc>176</yloc>
+      <width>243</width>
+      <heigth>42</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>128</backgroundcolorred>
+      <backgroundcolorgreen>255</backgroundcolorgreen>
+      <backgroundcolorblue>0</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>Clinique_DB</name>
@@ -681,7 +703,7 @@
     </remotesteps>
     <GUI>
       <xloc>896</xloc>
-      <yloc>32</yloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -918,7 +940,7 @@
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>32</yloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -953,7 +975,7 @@
     </remotesteps>
     <GUI>
       <xloc>592</xloc>
-      <yloc>32</yloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -985,7 +1007,7 @@
     </remotesteps>
     <GUI>
       <xloc>720</xloc>
-      <yloc>32</yloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

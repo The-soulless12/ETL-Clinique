@@ -2,11 +2,9 @@ CREATE TABLE Dim_Tranche_Age (
     Id_Tranche_Age SERIAL PRIMARY KEY,
     Tranche_Age VARCHAR(20)
 );
-
 CREATE TABLE Dim_Maladie (
     Id_Maladie SERIAL PRIMARY KEY,
-    Nom_Maladie VARCHAR(100) UNIQUE,
-    Description TEXT
+    Nom_Maladie VARCHAR(100) UNIQUE
 );
 
 CREATE TABLE Dim_Region (
@@ -137,15 +135,15 @@ SELECT
 FROM
     generate_series('2023-01-01'::DATE, '2023-12-31'::DATE, '1 day'::INTERVAL) AS dates;
 
-INSERT INTO Dim_Maladie (Nom_Maladie, Description)
+INSERT INTO Dim_Maladie (Nom_Maladie)
 VALUES
-('Healthy', 'Aucune maladie détectée lors de la consultation.'),
-('Eczema', 'Affection cutanée inflammatoire provoquant rougeurs, démangeaisons et sécheresse.'),
-('Migraine', 'Céphalée intense souvent accompagnée de nausées et de sensibilité à la lumière.'),
-('Angina', 'Douleur thoracique causée par un manque d’oxygène au muscle cardiaque.'),
-('Arthritis', 'Inflammation des articulations entraînant douleurs et raideurs.'),
-('Anxiety', 'Trouble psychologique caractérisé par un sentiment persistant d’inquiétude ou de peur.'),
-('Diabetes', 'Maladie chronique affectant la régulation de la glycémie.'),
-('Hypertension', 'Pression artérielle élevée pouvant mener à des complications cardiovasculaires.'),
-('Asthma', 'Maladie respiratoire chronique provoquant une inflammation et un rétrécissement des voies respiratoires.'),
-('Depression', 'Trouble de l’humeur caractérisé par une tristesse persistante et une perte d’intérêt.');
+('Healthy'),
+('Eczema'),
+('Migraine'),
+('Angina'),
+('Arthritis'),
+('Anxiety'),
+('Diabetes'),
+('Hypertension'),
+('Asthma'),
+('Depression');
