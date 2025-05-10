@@ -546,7 +546,7 @@
     <hop>
       <from>Vidage de Dim_Type_Medicament</from>
       <to>Extraction depuis Medicament</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
   </order>
   <step>

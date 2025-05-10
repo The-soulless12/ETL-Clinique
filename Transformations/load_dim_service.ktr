@@ -546,7 +546,7 @@
     <hop>
       <from>Vidage de Dim_Service</from>
       <to>Extraction depuis Medecin</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
   </order>
   <step>

@@ -546,7 +546,7 @@
     <hop>
       <from>Vidage de Dim_Nature_Analyse</from>
       <to>Extraction depuis Analyse Medicale</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
   </order>
   <step>
