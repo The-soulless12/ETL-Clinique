@@ -1,2 +1,4 @@
-*.sql linguist-language=SQL
+*.ktr linguist-detectable
+*.sql linguist-detectable
 *.ktr linguist-language=XML
+*.sql linguist-language=SQL
