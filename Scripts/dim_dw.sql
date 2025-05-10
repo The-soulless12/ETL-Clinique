@@ -2,6 +2,7 @@ CREATE TABLE Dim_Tranche_Age (
     Id_Tranche_Age SERIAL PRIMARY KEY,
     Tranche_Age VARCHAR(20)
 );
+
 CREATE TABLE Dim_Maladie (
     Id_Maladie SERIAL PRIMARY KEY,
     Nom_Maladie VARCHAR(100) UNIQUE
@@ -10,7 +11,7 @@ CREATE TABLE Dim_Maladie (
 CREATE TABLE Dim_Region (
     Id_Region SERIAL PRIMARY KEY,
     Nom_Region VARCHAR(100)
-);
+); 
 
 CREATE TABLE Dim_Patient (
     Id_Patient INT PRIMARY KEY,
@@ -147,3 +148,10 @@ VALUES
 ('Hypertension'),
 ('Asthma'),
 ('Depression');
+
+INSERT INTO Dim_Tranche_Age (Tranche_Age)
+VALUES 
+    ('0-18'),
+    ('19-35'),
+    ('36-50'),
+    ('51+');
