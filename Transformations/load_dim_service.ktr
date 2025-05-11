@@ -438,7 +438,7 @@
       <note>Activez le bloc de vidage de la table si vous
  souhaitez réinsérer l'ensemble des données.</note>
       <xloc>32</xloc>
-      <yloc>32</yloc>
+      <yloc>16</yloc>
       <width>243</width>
       <heigth>42</heigth>
       <fontname>Segoe UI</fontname>

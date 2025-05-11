@@ -437,8 +437,8 @@
     <notepad>
       <note>Activez le bloc de vidage de la table si vous
  souhaitez réinsérer l'ensemble des données.</note>
-      <xloc>466</xloc>
-      <yloc>231</yloc>
+      <xloc>464</xloc>
+      <yloc>48</yloc>
       <width>243</width>
       <heigth>42</heigth>
       <fontname>Segoe UI</fontname>

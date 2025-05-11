@@ -437,7 +437,7 @@
     <notepad>
       <note>Activez le bloc de vidage de la table si vous
  souhaitez réinsérer l'ensemble des données.</note>
-      <xloc>64</xloc>
+      <xloc>48</xloc>
       <yloc>208</yloc>
       <width>243</width>
       <heigth>42</heigth>
@@ -643,7 +643,7 @@
     <hop>
       <from>Vidage de Dim_Patient</from>
       <to>Extraction depuis Dim_Patient</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
   </order>
   <step>
