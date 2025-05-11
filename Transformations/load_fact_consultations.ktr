@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>load_dim_analyse_medicale</name>
+    <name>load_fact_consultations</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,35 +427,13 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2025/05/10 23:45:38.727</created_date>
+    <created_date>2025/05/11 00:04:39.981</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2025/05/10 23:45:38.727</modified_date>
-    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2025/05/11 00:04:39.981</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>Activez le bloc de vidage de la table si vous
- souhaitez réinsérer l'ensemble des données.</note>
-      <xloc>496</xloc>
-      <yloc>64</yloc>
-      <width>243</width>
-      <heigth>42</heigth>
-      <fontname>Segoe UI</fontname>
-      <fontsize>9</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>0</backgroundcolorred>
-      <backgroundcolorgreen>128</backgroundcolorgreen>
-      <backgroundcolorblue>128</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>Clinique_DB</name>
@@ -561,66 +539,1019 @@
   </connection>
   <order>
     <hop>
-      <from>Extraction depuis Analyse_Medicale</from>
-      <to>Tri code_analyse</to>
+      <from>Extraction depuis Consultation</from>
+      <to>Tri Id_Medecin</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Extraction depuis Dim_Analyse_Medicale</from>
-      <to>Tri code_analyse 2</to>
+      <from>Extraction depuis Medecin</from>
+      <to>Tri Id_Medecin 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Tri code_analyse</from>
+      <from>Tri Id_Medecin</from>
       <to>Jointure multiple</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Tri code_analyse 2</from>
+      <from>Tri Id_Medecin 2</from>
       <to>Jointure multiple</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Extraction depuis Dim_Patient</from>
+      <to>Tri Id_Patient 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Jointure multiple</from>
-      <to>Filtrage lignes</to>
+      <to>Tri Id_RDV</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Extraction depuis dim_nature_analyse</from>
-      <to>Tri Nature_Analyse 2</to>
+      <from>Extraction depuis RDV</from>
+      <to>Tri Id_RDV 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Tri Nature_Analyse</from>
+      <from>Tri Id_RDV</from>
       <to>Jointure multiple 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Tri Nature_Analyse 2</from>
+      <from>Tri Id_RDV 2</from>
       <to>Jointure multiple 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Jointure multiple 2</from>
+      <to>Tri Id_Patient</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Tri Id_Patient</from>
+      <to>Jointure multiple 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Tri Id_Patient 2</from>
+      <to>Jointure multiple 3</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Extraction depuis Dim_Date</from>
+      <to>Tri Date_RDV 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Jointure multiple 3</from>
+      <to>Tri Date_RDV</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Tri Date_RDV</from>
+      <to>Jointure multiple 4</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Tri Date_RDV 2</from>
+      <to>Jointure multiple 4</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Jointure multiple 4</from>
+      <to>Tri Id_Maladie</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Extraction depuis Dim_Maladie</from>
+      <to>Tri Id_Maladie 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Tri Id_Maladie 2</from>
+      <to>Jointure multiple 5</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Tri Id_Maladie</from>
+      <to>Jointure multiple 5</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Jointure multiple 5</from>
       <to>Altération structure flux</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Altération structure flux</from>
-      <to>Insertion dans Analyse_Medicale</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Vidage de Dim_Analyse_Medicale</from>
-      <to>Extraction depuis Dim_Analyse_Medicale</to>
-      <enabled>N</enabled>
-    </hop>
-    <hop>
-      <from>Filtrage lignes</from>
-      <to>Tri Nature_Analyse</to>
+      <to>Insertion dans Fact_Consultations</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <step>
+    <name>Extraction depuis Consultation</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Clinique_DB</connection>
+    <sql>SELECT * FROM Consultation</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>id_consul</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Extraction depuis table</origin>
+        <comments>id_consul</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>id_rdv</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Extraction depuis table</origin>
+        <comments>id_rdv</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>id_medecin</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Extraction depuis table</origin>
+        <comments>id_medecin</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Number</type>
+        <storagetype>normal</storagetype>
+        <name>prix</name>
+        <length>10</length>
+        <precision>2</precision>
+        <origin>Extraction depuis table</origin>
+        <comments>prix</comments>
+        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>diagnostic</name>
+        <length>255</length>
+        <precision>-1</precision>
+        <origin>Extraction depuis table</origin>
+        <comments>diagnostic</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>maladie</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>Extraction depuis table</origin>
+        <comments>maladie</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>80</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extraction depuis Medecin</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Entrepot_DB</connection>
+    <sql>SELECT Id_medecin FROM Dim_Medecin</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>id_medecin</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Extraction depuis Medecin</origin>
+        <comments>id_medecin</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>80</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tri Id_Medecin</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>id_medecin</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tri Id_Medecin 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>id_medecin</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>208</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Jointure multiple</name>
+    <type>MultiwayMergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step0>Tri Id_Medecin</step0>
+    <step1>Tri Id_Medecin 2</step1>
+    <number_input>2</number_input>
+    <keys>
+      <key>id_medecin</key>
+      <key>id_medecin</key>
+    </keys>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extraction depuis Dim_Patient</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Entrepot_DB</connection>
+    <sql>SELECT Id_Patient FROM Dim_Patient</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>id_patient</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Extraction depuis table</origin>
+        <comments>id_patient</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>528</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tri Id_Patient</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>id_patient</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tri Id_Patient 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>id_patient</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extraction depuis RDV</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Clinique_DB</connection>
+    <sql>SELECT Id_RDV, Date_RDV, Id_Patient FROM RDV</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>id_rdv</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Extraction depuis RDV</origin>
+        <comments>id_rdv</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>date_rdv</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>Extraction depuis RDV</origin>
+        <comments>date_rdv</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>id_patient</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Extraction depuis RDV</origin>
+        <comments>id_patient</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tri Id_RDV</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>432</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tri Id_RDV 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>432</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Jointure multiple 2</name>
+    <type>MultiwayMergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step0>Tri Id_RDV</step0>
+    <step1>Tri Id_RDV 2</step1>
+    <number_input>2</number_input>
+    <keys>
+      <key>id_rdv</key>
+      <key>id_rdv</key>
+    </keys>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>528</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Jointure multiple 3</name>
+    <type>MultiwayMergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step0>Tri Id_Patient</step0>
+    <step1>Tri Id_Patient 2</step1>
+    <number_input>2</number_input>
+    <keys>
+      <key>id_patient</key>
+      <key>id_patient</key>
+    </keys>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>752</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extraction depuis Dim_Date</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Entrepot_DB</connection>
+    <sql>SELECT Id_Date FROM Dim_Date</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Date</type>
+        <storagetype>normal</storagetype>
+        <name>id_date</name>
+        <length>-1</length>
+        <precision>-1</precision>
+        <origin>Extraction depuis table</origin>
+        <comments>id_date</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>752</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tri Date_RDV</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>date_rdv</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tri Date_RDV 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>id_date</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Jointure multiple 4</name>
+    <type>MultiwayMergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>INNER</join_type>
+    <step0>Tri Date_RDV</step0>
+    <step1>Tri Date_RDV 2</step1>
+    <number_input>2</number_input>
+    <keys>
+      <key>date_rdv</key>
+      <key>id_date</key>
+    </keys>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>976</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>Altération structure flux</name>
     <type>SelectValues</type>
@@ -634,19 +1565,24 @@
     </partitioning>
     <fields>
       <field>
-        <name>code_analyse</name>
+        <name>id_medecin_1</name>
+        <rename/>
       </field>
       <field>
-        <name>libelle_analyse</name>
+        <name>id_patient_1</name>
+        <rename/>
       </field>
       <field>
-        <name>id_nature_analyse_1</name>
+        <name>id_date</name>
+        <rename/>
       </field>
       <field>
-        <name>val_min</name>
+        <name>id_maladie</name>
+        <rename/>
       </field>
       <field>
-        <name>val_max</name>
+        <name>prix</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -659,429 +1595,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
+      <xloc>1200</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Extraction depuis Analyse_Medicale</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Clinique_DB</connection>
-    <sql>SELECT * FROM Analyse_Medicale</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>code_analyse</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Extraction depuis Analyse_Medicale</origin>
-        <comments>code_analyse</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>libelle_analyse</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>Extraction depuis Analyse_Medicale</origin>
-        <comments>libelle_analyse</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>nature_analyse</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>Extraction depuis Analyse_Medicale</origin>
-        <comments>nature_analyse</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Number</type>
-        <storagetype>normal</storagetype>
-        <name>val_min</name>
-        <length>10</length>
-        <precision>2</precision>
-        <origin>Extraction depuis Analyse_Medicale</origin>
-        <comments>val_min</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Number</type>
-        <storagetype>normal</storagetype>
-        <name>val_max</name>
-        <length>10</length>
-        <precision>2</precision>
-        <origin>Extraction depuis Analyse_Medicale</origin>
-        <comments>val_max</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>112</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extraction depuis Dim_Analyse_Medicale</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Entrepot_DB</connection>
-    <sql>SELECT * FROM Dim_Analyse_Medicale</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>code_analyse</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Extraction depuis Dim_Medicament</origin>
-        <comments>code_analyse</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>libelle_analyse</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>Extraction depuis Dim_Medicament</origin>
-        <comments>libelle_analyse</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>id_nature_analyse</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Extraction depuis Dim_Medicament</origin>
-        <comments>id_nature_analyse</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Number</type>
-        <storagetype>normal</storagetype>
-        <name>val_min</name>
-        <length>10</length>
-        <precision>2</precision>
-        <origin>Extraction depuis Dim_Medicament</origin>
-        <comments>val_min</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Number</type>
-        <storagetype>normal</storagetype>
-        <name>val_max</name>
-        <length>10</length>
-        <precision>2</precision>
-        <origin>Extraction depuis Dim_Medicament</origin>
-        <comments>val_max</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>112</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extraction depuis dim_nature_analyse</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Entrepot_DB</connection>
-    <sql>SELECT * FROM Dim_Nature_Analyse</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>id_nature_analyse</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Extraction depuis dim_type_medicament</origin>
-        <comments>id_nature_analyse</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>nature_analyse</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>Extraction depuis dim_type_medicament</origin>
-        <comments>nature_analyse</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>Africa/Lagos</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>400</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filtrage lignes</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Tri Nature_Analyse</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>code_analyse_1</leftvalue>
-        <function>IS NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>496</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Insertion dans Analyse_Medicale</name>
+    <name>Insertion dans Fact_Consultations</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1093,7 +1613,7 @@
     </partitioning>
     <connection>Entrepot_DB</connection>
     <schema>public</schema>
-    <table>dim_analyse_medicale</table>
+    <table>fact_consultations</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -1110,24 +1630,24 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>code_analyse</column_name>
-        <stream_name>code_analyse</stream_name>
+        <column_name>id_date</column_name>
+        <stream_name>id_date</stream_name>
       </field>
       <field>
-        <column_name>libelle_analyse</column_name>
-        <stream_name>libelle_analyse</stream_name>
+        <column_name>id_maladie</column_name>
+        <stream_name>id_maladie</stream_name>
       </field>
       <field>
-        <column_name>val_min</column_name>
-        <stream_name>val_min</stream_name>
+        <column_name>prix</column_name>
+        <stream_name>prix</stream_name>
       </field>
       <field>
-        <column_name>val_max</column_name>
-        <stream_name>val_max</stream_name>
+        <column_name>id_medecin</column_name>
+        <stream_name>id_medecin_1</stream_name>
       </field>
       <field>
-        <column_name>id_nature_analyse</column_name>
-        <stream_name>id_nature_analyse_1</stream_name>
+        <column_name>id_patient</column_name>
+        <stream_name>id_patient_1</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -1139,14 +1659,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>64</yloc>
+      <xloc>1360</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Jointure multiple</name>
-    <type>MultiwayMergeJoin</type>
+    <name>Extraction depuis Dim_Maladie</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1155,14 +1675,62 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <join_type>FULL OUTER</join_type>
-    <step0>Tri code_analyse</step0>
-    <step1>Tri code_analyse 2</step1>
-    <number_input>2</number_input>
-    <keys>
-      <key>code_analyse</key>
-      <key>code_analyse</key>
-    </keys>
+    <connection>Entrepot_DB</connection>
+    <sql>SELECT * FROM Dim_Maladie</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cached_row_meta_active>N</cached_row_meta_active>
+    <row-meta>
+      <value-meta>
+        <type>Integer</type>
+        <storagetype>normal</storagetype>
+        <name>id_maladie</name>
+        <length>9</length>
+        <precision>0</precision>
+        <origin>Extraction depuis Dim_Maladie</origin>
+        <comments>id_maladie</comments>
+        <conversion_Mask>####0;-####0</conversion_Mask>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>nom_maladie</name>
+        <length>100</length>
+        <precision>-1</precision>
+        <origin>Extraction depuis Dim_Maladie</origin>
+        <comments>nom_maladie</comments>
+        <conversion_Mask/>
+        <decimal_symbol>,</decimal_symbol>
+        <grouping_symbol> </grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>fr_FR</date_format_locale>
+        <date_format_timezone>Africa/Lagos</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+    </row-meta>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -1172,13 +1740,97 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
-      <yloc>128</yloc>
+      <xloc>976</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Jointure multiple 2</name>
+    <name>Tri Id_Maladie</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>maladie</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1104</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Tri Id_Maladie 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>nom_maladie</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1104</xloc>
+      <yloc>384</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Jointure multiple 5</name>
     <type>MultiwayMergeJoin</type>
     <description/>
     <distribute>Y</distribute>
@@ -1189,12 +1841,12 @@
       <schema_name/>
     </partitioning>
     <join_type>INNER</join_type>
-    <step0>Tri Nature_Analyse</step0>
-    <step1>Tri Nature_Analyse 2</step1>
+    <step0>Tri Id_Maladie</step0>
+    <step1>Tri Id_Maladie 2</step1>
     <number_input>2</number_input>
     <keys>
-      <key>nature_analyse</key>
-      <key>nature_analyse</key>
+      <key>maladie</key>
+      <key>nom_maladie</key>
     </keys>
     <attributes/>
     <cluster_schema/>
@@ -1205,215 +1857,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Tri Nature_Analyse</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>nature_analyse</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Tri Nature_Analyse 2</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>nature_analyse</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Tri code_analyse</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>code_analyse</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Tri code_analyse 2</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>code_analyse</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Vidage de Dim_Analyse_Medicale</name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Entrepot_DB</connection>
-    <execute_each_row>N</execute_each_row>
-    <single_statement>N</single_statement>
-    <replace_variables>N</replace_variables>
-    <quoteString>N</quoteString>
-    <sql>TRUNCATE TABLE dim_analyse_medicale RESTART IDENTITY CASCADE;
-</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-    </arguments>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>112</xloc>
-      <yloc>272</yloc>
+      <xloc>1200</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
