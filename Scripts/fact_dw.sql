@@ -13,7 +13,7 @@ CREATE TABLE Fact_Analyses_Medicales (
     Id_Date DATE REFERENCES Dim_Date(Id_Date),
 	Id_Medecin INT REFERENCES Dim_Medecin(Id_Medecin),
     Prix DECIMAL(10, 2),
-    Resultat DECIMAL(10, 2),
+    Resultat VARCHAR(255),
     PRIMARY KEY (Id_Medecin, Id_Patient, Id_Date, Code_Analyse)
 );
 
